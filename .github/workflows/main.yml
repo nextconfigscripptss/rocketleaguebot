@@ -8,6 +8,7 @@ on:
     branches:
       - main
 
+
 jobs:
   build:
     runs-on: windows-latest
@@ -31,6 +32,7 @@ jobs:
     - name: Build DLL
       run: |
         x86_64-w64-mingw32-gcc -shared -o bot.dll -Wl,--out-implib,libbot.a '-I/usr/x86_64-w64-mingw32/include/python3.9' my_project/bot.c
+
 
     - name: Upload DLL
       if: success()
