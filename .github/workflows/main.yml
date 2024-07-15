@@ -12,27 +12,26 @@ jobs:
   build:
     runs-on: windows-latest
 
+    env:
+      pythonLocation: C:\hostedtoolcache\windows\Python\3.9.13\x64
+
     steps:
     - uses: actions/checkout@v2
 
     - name: Install Python and adjust PATH
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'  # Especifica la versión de Python que necesitas
-        architecture: 'x64'
-        
-    - name: List directories and files
       run: |
-        ls -R /usr
-
-
-    - name: Build DLL
-      run: |
-        # Instalar las herramientas de desarrollo de Python (incluye Python.h)
+        echo "##[add-path]${env:pythonLocation}"
         py -3.9 -m pip install --upgrade pip
         py -3.9 -m pip install --upgrade setuptools wheel
         py -3.9 -m pip install --upgrade cython
 
+    - name: Install GCC for Windows
+      run: |
+        sudo apt update
+        sudo apt install -y gcc-mingw-w64-x86-64
+
+    - name: Build DLL
+      run: |
         # Compilar la extensión de C
         x86_64-w64-mingw32-gcc -shared -o bot.dll -I/usr/x86_64-w64-mingw32/include/python3.9 my_project/bot.c
 
