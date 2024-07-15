@@ -20,10 +20,17 @@ jobs:
       with:
         python-version: '3.9'  # Especifica la versión de Python que necesitas
         architecture: 'x64'
-
+        
     - name: Build DLL
       run: |
+        # Instalar las herramientas de desarrollo de Python (incluye Python.h)
+        py -3.x -m pip install --upgrade pip
+        py -3.x -m pip install --upgrade setuptools wheel
+        py -3.x -m pip install --upgrade cython
+
+        # Compilar la extensión de C
          x86_64-w64-mingw32-gcc -shared -o bot.dll -I/usr/include/python3.9 my_project/bot.c
+
 
     - name: Upload DLL
       if: success()
