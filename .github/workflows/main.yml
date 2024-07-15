@@ -8,7 +8,6 @@ on:
     branches:
       - main
 
-
 jobs:
   build:
     runs-on: windows-latest
@@ -28,15 +27,13 @@ jobs:
         overwrite-settings: true
         cache-dir: ~/.m2/repository
 
-
     - name: Build DLL
       run: |
         x86_64-w64-mingw32-gcc -shared -o bot.dll -Wl,--out-implib,libbot.a '-I/usr/x86_64-w64-mingw32/include/python3.9' my_project/bot.c
-
 
     - name: Upload DLL
       if: success()
       uses: actions/upload-artifact@v2
       with:
         name: bot-dll
-        path: path/to/your/dll/file.dll  # Replace with the actual path to your bot.dll
+        path: bot.dll  # Reemplaza con la ruta real de tu archivo DLL de salida
