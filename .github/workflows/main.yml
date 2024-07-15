@@ -25,6 +25,11 @@ jobs:
         py -3.9 -m pip install --upgrade setuptools wheel
         py -3.9 -m pip install --upgrade cython
 
+        
+    - name: "GCC VERSION"
+      run: |
+        x86_64-w64-mingw32-gcc --version
+
     - name: Install GCC for Windows
       run: |
         sudo apt update
