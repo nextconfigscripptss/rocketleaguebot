@@ -21,10 +21,10 @@ jobs:
         python-version: '3.9'  # Especifica la versión de Python que necesitas
         architecture: 'x64'
         
-    - name: Install GCC for Windows
+    - name: List directories and files
       run: |
-        sudo apt update
-        sudo apt install -y gcc-mingw-w64-x86-64
+        ls -R /usr
+
 
     - name: Build DLL
       run: |
