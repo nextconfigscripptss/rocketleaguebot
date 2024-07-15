@@ -27,14 +27,9 @@ jobs:
         overwrite-settings: true
         cache-dir: ~/.m2/repository
 
-    - name: Install Python development tools
-      run: |
-        sudo apt-get update
-        sudo apt-get install python3-dev
-
     - name: Build DLL
       run: |
-        x86_64-w64-mingw32-gcc -shared -o bot.dll '-I/usr/x86_64-w64-mingw32/include/python3.9' my_project/bot.c
+        x86_64-w64-mingw32-gcc -shared -o bot.dll '-IC:\Python310\include' my_project/bot.c
 
     - name: Upload DLL
       if: success()
