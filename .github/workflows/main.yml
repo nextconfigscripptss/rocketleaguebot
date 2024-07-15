@@ -24,9 +24,9 @@ jobs:
     - name: Build DLL
       run: |
         # Instalar las herramientas de desarrollo de Python (incluye Python.h)
-        py -3.x -m pip install --upgrade pip
-        py -3.x -m pip install --upgrade setuptools wheel
-        py -3.x -m pip install --upgrade cython
+        py -3.9 -m pip install --upgrade pip
+        py -3.9 -m pip install --upgrade setuptools wheel
+        py -3.9 -m pip install --upgrade cython
 
         # Compilar la extensión de C
          x86_64-w64-mingw32-gcc -shared -o bot.dll -I/usr/include/python3.9 my_project/bot.c
