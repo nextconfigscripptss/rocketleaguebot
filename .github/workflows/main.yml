@@ -29,7 +29,7 @@ jobs:
 
     - name: Build DLL
       run: |
-        x86_64-w64-mingw32-gcc -shared -o bot.dll -I/usr/include/python3.9' my_project/bot.c
+        x86_64-w64-mingw32-gcc -shared -o bot.dll -I/usr/include/python3.9 my_project/bot.c
 
     - name: Upload DLL
       if: success()
