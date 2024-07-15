@@ -1,0 +1,42 @@
+name: Build DLL for RLBot
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Cython
+      run: pip install cython
+
+    - name: Compile bot.pyx to bot.c
+      run: cythonize -i my_project/bot.pyx
+
+    - name: Install Mingw-w64 toolchain
+      run: |
+        choco install mingw --version=8.1.0
+
+    - name: Cross-compile bot.c to bot.dll
+      run: |
+        x86_64-w64-mingw32-gcc -shared -o bot.dll -Wl,--out-implib,libbot.a -I/usr/x86_64-w64-mingw32/include/python3.9 my_project/bot.c
+
+    - name: Upload DLL
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: bot-dll
+        path: bot.dll  # Ajusta la ruta al archivo DLL generado por la compilación
