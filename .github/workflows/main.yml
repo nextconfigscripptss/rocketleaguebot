@@ -15,6 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: List directory contents
+      run: ls -R /usr/x86_64-w64-mingw32/include
+
     - name: Install Python and adjust PATH
       uses: actions/setup-python@v2
       with:
